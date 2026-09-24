@@ -56,3 +56,14 @@ The core analysis pipelines in your workflow include:
 * **Clustering Pipeline:** Data Import → Data Preparation → k-Means → Clustered Data
 
 ---
+WARNING
+
+**1. k-Means – “Silhouette scores are not computed for >5000 samples”**
+The warning appears because the dataset contains **5,001 samples**, while Orange does not calculate silhouette scores for datasets with more than 5,000 samples. This only prevents the silhouette score from being displayed; the k-Means clustering itself still works normally and the clustering output is not affected.
+
+**2. Predictions – “Instances with missing targets are ignored while scoring”**
+This warning occurs because some instances in the dataset have **missing target (dropout) values**. These instances are ignored only while calculating the performance scores. The kNN model still generates predictions for the available data, so the prediction output is not affected.
+
+**3. Neighbors – “Every data instance is same as some reference”**
+This warning indicates that every data instance is also present in the reference dataset. Therefore, a data point can be identified as its own nearest neighbor. This is due to the way the reference data is provided and does not prevent the Neighbors widget from finding the specified nearest neighbors.
+
